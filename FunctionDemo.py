@@ -143,7 +143,18 @@ print(plusTwoEvens)
 sum = reduce(lambda x, y: x + y, plusTwoEvens)
 print(sum)
 
-# Next start from Decorators
+print("===================================================================================================")
 
+# Next start from Decorators
+def div(a, b):
+    print(a/b)
+
+def smart_div(a, b):
+    if a > b:
+        div(a, b)
+    else:
+        div(b, a)
+
+smart_div(2, 4)
 
 
