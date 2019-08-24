@@ -1,0 +1,306 @@
+											PYTHON TUTORIAL
+==========================================================================================================================================================
+Python - an Interpreted, Object-Oriented, High-level language.
+
+
+	* - List is mutable.
+		Defined with '[' and ']' (Third or square brackets).
+		
+	* - Tuple is immutable.
+		Defined with '(' and ')' (First or round brackets).
+		
+	* - Set - only contains non-duplicate values as set in other languages like Java. 
+		Uses the concept of Hash.
+		No-specific order of elements. So indexing is not supported. You cannot access an element in a set using set[i] method.
+		Defined with '{' and '}' (Third or curly brackets).
+==========================================================================================================================================================
+=> More on Variables
+
+To get the address of a variable -
+>>> num = 555 # Just creating a variable.
+>>> id(num) # To get the address of the variable num.
+88514592
+>>> name = 'arnab banerjee'
+>>> id(name)
+20756744
+>>> anothernum = num # Here I am assigning a variable from another variable. So basically both of them are pointing to the same location.
+>>> id(anothernum)
+88514592
+>>> anothername = name # Here I am assigning a variable from another variable. So basically both of them are pointing to the same location.
+>>> id(anothername)
+20756744
+
+To get the type of the variables -
+>>> type(num)
+<class 'int'>
+>>> type(name)
+<class 'str'>
+==========================================================================================================================================================
+=> Datatypes.
+
+-> None - Similar to null in Java.
+>>> abc = None
+>>> abc
+>>> 
+
+-> Numeric - The numeric types.
+	-> int
+	-> float
+	-> complex
+	-> bool
+
+-> List.
+
+-> Tuple.
+
+-> Set.
+
+-> String.
+
+-> Range.
+
+-> Dictionary or Map.
+>>> dic = {'name': 'arnab', 'city': 'kolkata'}
+>>> dic
+{'name': 'arnab', 'city': 'kolkata'}
+>>> type(dic)
+<class 'dict'>
+>>> dic.keys()
+dict_keys(['name', 'city'])
+>>> dic.values()
+dict_values(['arnab', 'kolkata'])
+>>> dic['name']
+'arnab'
+>>> dic['city']
+'kolkata'
+>>> dic.get('name')
+'arnab'
+>>> print(dic.get('city'))
+kolkata
+
+==========================================================================================================================================================
+=> Operators
+
+-> Arithmetic Operators.
+-> Assignment Operators.
+-> Relational Operators.
+-> Logical Operators.
+-> Unary Operators.
+-> Bitwise Operators.
+	-> Complement (~).
+	-> And (&).
+	-> Or (|).
+	-> XOR (^).
+	-> Left Shift (<<).
+	-> Right Shift (>>).
+	
+
+Number System Conversions.
+>>> bin(4)
+'0b100'
+>>> x = 4
+>>> bin(x)
+'0b100'
+>>> x = bin(4)
+>>> x
+'0b100'
+>>> type(x)
+<class 'str'>
+>>> bin(25)
+'0b11001'
+>>> bin(9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999)
+'0b11011100001000011010000100010111000111010100001001100100010111010111011001110000011101010100001111110100111110100001111101110011101100000101111110011000011111111101101111101101001111000010011111010000100011100010001101011010111000100010010011100111001101100010001010010011001110010000111110111000011101110011111000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+>>> 0b11011100001000011010000100010111000111010100001001100100010111010111011001110000011101010100001111110100111110100001111101110011101100000101111110011000011111111101101111101101001111000010011111010000100011100010001101011010111000100010010011100111001101100010001010010011001110010000111110111000011101110011111000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
+>>> 0b100101001010010
+19026
+>>> oct(x)
+Traceback (most recent call last):
+  File "<pyshell#131>", line 1, in <module>
+    oct(x)
+TypeError: 'str' object cannot be interpreted as an integer
+>>> x = 4
+>>> oct(x)
+'0o4'
+>>> bin(0o4)
+'0b100'
+>>> oct(9999999999999999999999999999999999999999999999999999999)
+'0o6414751324147742016627777513234375640717331777777777777777777'
+>>> hex(9999999999999999999999999999999999999999999999999999999)
+'0x6867a5a867f103b2fffa5a71fba0e7b67fffffffffffff'
+
+==========================================================================================================================================================
+=> Value Swapping
+a = 5
+b = 6
+
+a = a + b
+b = a - b
+a = a - b
+
+print(a)
+print(b)
+
+a = 5
+b = 6
+
+a = a ^ b
+b = a ^ b
+a = a ^ b
+
+print(a)
+print(b)
+
+a = 5
+b = 6
+
+a, b = b, a
+
+print(a)
+print(b)
+
+
+==========================================================================================================================================================
+=> Comments
+Comments start with a hash (#) character.
+>>> # This is a comment.
+>>> world = 1 # This is another comment.
+>>> 	# This is a third comment!
+>>> test = "# This is not a comment, just a hash character, because it is inside of quotes"
+==========================================================================================================================================================
+=> Lists
+Python knows a number of compound datatypes, used to group together other values. The most versatile is the list, which can be written as a list of comma-separated values between square brackets.
+>>> squares = [1, 4, 9, 16, 25]
+>>> squares
+[1, 4, 9, 16, 25]
+>>> squares[1]
+4
+>>> squares[-1]
+25
+>>> squares[2:]
+[9, 16, 25]
+
+All slice operations return a new list containing the requested elements. This means that the following slice returns a new (shallow) copy of the list:
+>>> squares[:]
+[1, 4, 9, 16, 25]
+
+Lists also support operations like concatenation:
+>>> squares + [36, 49, 64, 81, 100]
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+>>> squares # But doesn't modify the original list.
+[1, 4, 9, 16, 25]
+
+Unlike strings, which are immutable, lists are a mutable type, i.e. it is possible to change their content:
+>>> squares
+[1, 4, 9, 16, 25]
+>>> squares[2] = 90
+>>> squares
+[1, 4, 90, 16, 25]
+
+Assignment to slices is also possible, and this can even change the size of the list or clear it entirely:
+>>> letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+>>> letters
+['a', 'b', 'c', 'd', 'e', 'f', 'g']
+>>> # replace some values
+>>> letters[2:5] = ['C', 'D', 'E']
+>>> letters
+['a', 'b', 'C', 'D', 'E', 'f', 'g']
+>>> # now remove them
+>>> letters[2:5] = []
+>>> letters
+['a', 'b', 'f', 'g']
+>>> # clear the list by replacing all the elements with an empty list
+>>> letters[:] = []
+>>> letters
+[]
+
+The built-in function len() also applies to lists:
+>>> len(squares)
+5
+
+It is possible to nest lists (create lists containing other lists), for example:
+>>> a = ['a', 'b', 'c']
+>>> n = [1, 2, 3]
+>>> x = [a, n]
+>>> x
+[['a', 'b', 'c'], [1, 2, 3]]
+>>> x[0]
+['a', 'b', 'c']
+>>> x[0][1]
+'b'
+==========================================================================================================================================================
+=> The range() function
+If you do need to iterate over a sequence of numbers, the built-in function range() comes in handy. It generates arithmetic progressions:
+>>> for i in range(5):
+...     print(i)
+...
+0
+1
+2
+3
+4
+
+The given end point is never part of the generated sequence; range(10) generates 10 values, the legal indices for items of a sequence of length 10. It is possible to let the range start at another number, or to specify a different increment (even negative; sometimes this is called the ‘step’):
+range(5, 10)
+   5, 6, 7, 8, 9
+
+range(0, 10, 3)
+   0, 3, 6, 9
+
+range(-10, -100, -30)
+  -10, -40, -70
+
+==========================================================================================================================================================
+=> break and continue Statements, and else Clauses on Loops
+Loop statements may have an else clause; it is executed when the loop terminates through exhaustion of the list (with for) or when the condition becomes false (with while), but not when the loop is terminated by a break statement.
+>>> for n in range(2, 10):
+...     for x in range(2, n):
+...         if n % x == 0:
+...             print(n, 'equals', x, '*', n//x)
+...             break
+...     else:
+...         # loop fell through without finding a factor
+...         print(n, 'is a prime number')
+...
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+5 is a prime number
+6 equals 2 * 3
+7 is a prime number
+8 equals 2 * 4
+9 equals 3 * 3
+
+The continue statement, also borrowed from C, continues with the next iteration of the loop.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
