@@ -1,0 +1,216 @@
+Venkat Subramaniam would never be described as a “waterfall” sort of guy. So,
+when he mentioned that he was starting on a Java 8 book—long before the design
+of Java 8 was settled—I was not at all surprised. It was clear this was going to
+be an “agile” book project.
+Despite having to more than occasionally rework the text as the language and
+library features evolved, Venkat had a secret advantage—he knew where we were
+going. The Java 8 design was heavily influenced by the core principles of functional
+programming: functions as values, immutability, and statelessness. We didn’t do
+this because functional programming is trendy or cool; we did it because programs
+that are expressed as stateless transformations on immutable data, rather than
+as modifications of mutable data structures, tend to be easier to read and main-
+tain, to be less error prone, and to parallelize more gracefully.
+The new features introduced in Java 8 were designed together to facilitate devel-
+opment of more expressive and parallel-friendly libraries. Lambda expressions
+reduce the syntactic overhead of encoding behavior as data; default methods
+allow existing libraries to evolve over time, enabling core JDK classes such as
+Collections to take advantage of lambda expressions; the java.util.stream package
+leverages these language features to offer rich aggregate operations on collections,
+arrays, and other data sources in a declarative, expressive, and parallel-friendly
+manner. All of this adds up to more powerful and performant code, as well as a
+more pleasant programming experience.
+This book not only provides lots of examples of how to use these new features,
+but offers readers a peek into the underlying principles behind their design, and
+why they result in better code. Let Venkat be your guide to this new and improved
+Java—you’re in for a treat.
+Brian Goetz
+Java Language Architect, Oracle Corporation
+September 2013
+report erratum • discuss
+Acknowledgments
+Writing a book is like taking a road trip—we know where we’re heading, but
+some details emerge only after the start. The journey may involve detours—
+opportunities to explore unexpected places—and it’s more fun with good
+company. I’m thankful for the great company of people on this voyage: smart
+reviewers, an amazing editor, a wonderful set of people at The Pragmatic
+Bookshelf, and a very supportive family.
+I first thank the Java language team members at Oracle for their hard work
+to bring the functional style of programming to one of the most popular
+mainstream languages. You’ve taken the language in the right direction—not
+through shortcuts and quick fixes, but by way of sound reasoning and prudent
+design decisions. Kudos, team.
+I express my sincere gratitude to the smart developers who volunteered their
+personal time to review this book. Thank you, Kimberly Barnes, Fred Daoud,
+Raju Gandhi, Marty Hall, Praveen Kumar, Rebecca Parsons, Kirk Pepperdine,
+Chris Richardson, Ian Roughley, Nate Schutta, Ken Sipe, and Dan Sline. Your
+comments were critical yet very constructive and motivational; they helped
+make this book better. I’m honored and humbled by Bruce Tate reviewing
+this book. He’s been a great mentor for me over the years. He reviewed this
+book multiple times, at different stages, and took the time to motivate me as
+to why certain changes were essential. Thank you, Bruce. I’d also like to
+express my gratitude to Brian Goetz for reviewing the book multiple times,
+for the encouragement starting early on, and for kindly agreeing to write the
+foreword. Any errors in the book are solely mine.
+The biggest benefit of publishing a beta copy of a book is the opportunity to
+improve it based on valuable feedback from early readers. I’m indebted to the
+following readers for taking their valuable time to provide feedback on the
+forum for this book or reporting errors on the errata page. Thank you, Greg
+Helton, Günter Jantzen, Narayanan Jayaratchagan, Wacek Kusnierczyk,
+Nabeel Ali Memon, Marc-Daniel Ortega, Arjo Ouwens, Philip Schwarz,
+report erratum • discuss
+Ekaterina Sh, Dan Talpau, Benjamin Tan, Brian Tarbox, Marco Vermeulen,
+and Jason Weden.
+I benefited greatly from every interaction with Jackie Carter. She did not just
+edit; she motivated me and helped shape this book. Thank you, Jackie, for
+your hard work, fast responses, and truly making this a fun experience.
+Impatience is one of my many weaknesses, but the kind folks at The Pragmatic
+Bookshelf turned that into a strength when I set out to write this book.
+Susannah Pfalzer, Andy Hunt, Dave Thomas, and several others worked
+behind the scenes to help me succeed on a self-imposed fast-paced schedule.
+You make writing books so much easier and more fun, much more than you
+may realize.
+I have enjoyed the privilege of being part of various conferences, and the No
+Fluff Just Stuff (NFJS) conference series in particular. I have learned a lot
+from the interactions I’ve had with other speakers and developers. Special
+thanks to my friends on the conference circuit, especially Jay Zimmerman,
+director of NFJS.
+I thank my wife Kavitha and sons Karthik and Krupa for letting me hide in
+my office during the holidays to work on this book. It was a true pleasure to
+have their support and above all to see their curiousness. Special thanks to
+my parents for their blessings and encouragement.
+Acknowledgments • xiv
+report erratum • discuss
+In any field, find the strangest thing and then explore it.
+➤ John Archibald Wheeler
+Preface
+You’re in for a treat. One of the most prominent and widely used languages
+in the world has evolved. Until now Java gave us one set of tools—the object-
+oriented paradigm—and we did the best we could with it. Now there’s another,
+more elegant way to solve the common problems we encounter when develop-
+ing applications. We can now do quite effectively in Java what was previously
+possible only on the JVM using other languages—this means more power to
+Java programmers.
+I’m thankful to have had the privilege over the past few decades to program
+with multiple languages: C, C++, Java, C#, F#, Ruby, Groovy, Scala, Clojure,
+Erlang, JavaScript… When asked which one’s my favorite, my resounding
+answer has been that it’s not the language that excites me, but the way we
+program.
+The science and engineering in programming drew me in, but the art in pro-
+gramming keeps me. Coding has a lot in common with writing—there’s more
+than one way to express our ideas. Java helped us write code using objects.
+Now we have an additional way to implement our designs and ideas.
+This is a new way in Java, one that will make our code more expressive,
+easier to write, less error prone, and easier to parallelize than has been the
+case with Java until now. This way has been around for decades and widely
+used in languages like Lisp, Clojure, Erlang, Smalltalk, Scala, Groovy, and
+Ruby. It’s not only a new way in Java, but a better way.
+Since coding is like writing, we can learn a few things from that field. In On
+Writing Well [Zin01], William Zinsser recommends simplicity, clarity, and
+brevity. To create better applications, we can start by making the code simpler,
+clear, and concise. The new style of programming in Java lets us do exactly
+that, as we will explore throughout this book.
+report erratum • discuss
+Who’s This Book For
+This book is for programmers well versed in object-oriented programming in
+Java and keen to learn and apply the new facilities of lambda expressions.
+You’ll need good experience programming in previous versions of Java, espe-
+cially Java 5, to make the best use of this book.
+Programmers mostly interested in JVM languages like Scala, Groovy, JRuby,
+and Clojure can benefit from the examples in this book and can relate back
+to the facilities offered in those languages. They can also use the examples
+to help fellow Java programmers on their teams.
+Programmers experienced with the functional style of programming in other
+languages and who are now involved in Java projects can use this book, as
+well. They can learn how what they know translates to the specifics of the
+lambda expressions’ usage in Java.
+Programmers who are familiar with lambda expressions in Java can use this
+book to help coach and train their team members who are getting up to speed
+in this area.
+What’s in This Book
+This book will help you get up to speed with Java 8 lambda expressions, to
+think in the elegant style, and to benefit from the additions to the Java
+Development Kit (JDK) library. We’ll take an example-driven approach to
+exploring the concepts. Rather than discuss the theory of functional program-
+ming, we’ll dive into specific day-to-day tasks to apply the elegant style. This
+approach will quickly get these concepts under our belts so we can put them
+to real use on projects right away.
+On the first read, take the time to go over the chapters sequentially as we
+build upon previously discussed concepts and examples. Each chapter closes
+with a quick summary to recap what was covered. Later, when working on
+applications, take a quick glance at any relevant example or section in the
+book. There’s also a syntax appendix for quick reference.
+Here’s how the rest of the book is organized:
+We discuss the functional style of programming, its benefits, and how it differs
+from the prevalent imperative style in Chapter 1, Hello, Lambda Expressions!,
+on page 1. We also look into how Java supports lambda expressions in this
+chapter.
+Preface • xvi
+report erratum • discuss
+The JDK collections have received some special treatment in Java 8, with
+new interfaces, classes, and methods that support functional-style operations.
+We will explore these in Chapter 2, Using Collections, on page 19.
+In Chapter 3, Strings, Comparators, and Filters, on page 41, we exploit func-
+tional-style and lambda expressions to work with strings, implement the
+Comparator interface, and use filters for file selection.
+In addition to using the functional-style facilities in the JDK, we can benefit
+from applying the elegant style in the design of methods and classes we create.
+We’ll cover functional-style design techniques in Chapter 4, Designing with
+Lambda Expressions, on page 63.
+The lambda expressions facilitate a code structure that helps delineate oper-
+ations to manage object lifetimes and resource cleanup, as we’ll discuss in
+Chapter 5, Working with Resources, on page 87.
+We’ll see lambda expressions shine in Chapter 6, Being Lazy, on page 103;
+they provide us the ability to postpone instance creation and method evalua-
+tions as well as create infinite lazy collections, and thereby improve the code’s
+performance.
+In Chapter 7, Optimizing Recursions, on page 121, we will use lambda
+expressions to optimize recursions and achieve stellar performance using
+memoization techniques.
+We’ll put the techniques we cover in the book to some real use in Chapter 8,
+Composing with Lambda Expressions, on page 135, where we’ll transform
+objects, implement MapReduce, and safely parallelize a program with little
+effort.
+In Chapter 9, Bringing It All Together, on page 147, we’ll go over the key concepts
+and the practices needed to adopt those techniques.
+In Appendix 1, Starter Set of Functional Interfaces, on page 155, we’ll take a
+glance at some of the most popular functional interfaces.
+A quick overview of the Java 8 syntax for functional interfaces, lambda
+expressions, and method/constructor references is in Appendix 2, Syntax
+Overview, on page 157.
+The URLs mentioned throughout this book are gathered together for your
+convenience in Appendix 3, Web Resources, on page 163.
+report erratum • discuss
+What’s in This Book • xvii
+Java Version Used in This Book
+To run the examples in this book you need Java 8 with support for lambda
+expressions. Using automated scripts, the examples in this book have been
+tried out with the following version of Java:
+java version "1.8.0"
+Java(TM) SE Runtime Environment (build 1.8.0-b128)
+Java HotSpot(TM) 64-Bit Server VM (build 25.0-b69, mixed mode)
+Take a few minutes to download the appropriate version of Java for your
+system. This will help you follow along with the examples in this book.
+How to Read the Code Examples
+When writing code in Java, we place classes in packages, and executable state-
+ments and expressions in methods. To reduce clutter, we’ll skip the package
+names and imports in the code listings. All code in this book belongs to a package:
+package fpij;
+Any executable code not listed within a method is part of an undisplayed main()
+method. When going through the code listings, if you have an urge to look at the
+full source code, remember it’s only a click away at the website for this book.
+Online Resources
+A number of web resources referenced throughout the book are collected in
+Appendix 3, Web Resources, on page 163. Here are a few that will help you get
+started with this book:
+The Oracle website for downloading the version of Java used in this book is
+https://jdk8.java.net/download.html . The JDK documentation is available at
+http://download.java.net/jdk8/docs/api .
+This book’s page at the Pragmatic Bookshelf website is http://www.pragprog.com/
+titles/vsjava8 . From there you can download all the example source code for the
+book. You can also provide feedback by submitting errata entries or posting
+your comments and questions in the forum. If you’re reading the book in PDF
+form, you can click on the link above a code listing to view or download the
+specific examples.
+Now for some fun with lambda expressions…
+Venkat Subramaniam
+February 2014

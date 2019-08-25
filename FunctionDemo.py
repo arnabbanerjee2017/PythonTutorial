@@ -145,7 +145,7 @@ print(sum)
 
 print("===================================================================================================")
 
-# Next start from Decorators
+# Next start from value swapper function demo
 def div(a, b):
     print(a/b)
 
@@ -157,4 +157,7 @@ def smart_div(a, b):
 
 smart_div(2, 4)
 
+print("===================================================================================================")
 
+# __name__ variable
+print(__name__)
