@@ -1,28 +1,24 @@
-# Basics of function
-def greet():
-    print("Hello World!")
-    print("Good Morning!")
+# Basics of Functions
 
-def ops(a, b):
-    return a + b, a - b, a * b, a / b
+def func1():
+    print("Hello, World!")
+    print("Hi, how are you? I am doing fine!")
 
-greet()
-greet()
+func1()
 
-result = ops(4, 5)
-print(result)
-print(type(result))
+def func2(x, y):
+    return x + y, x - y, x * y, x / y
 
-add, sub, mul, div = ops(8, 2)
-print(add, type(add))
-print(sub, type(sub))
-print(mul, type(mul))
-print(div, type(div))
+print(func2(5, 4), type(func2(5, 4)))
 
-print("============================================================================================================")
+print(func2(5, 4)[0], type(func2(5, 4)[0]))
+print(func2(5, 4)[1], type(func2(5, 4)[1]))
+print(func2(5, 4)[2], type(func2(5, 4)[2]))
+print(func2(5, 4)[3], type(func2(5, 4)[3]))
 
-# Functions arguments
-def update(x):
+print("\n\n====================================================================================================\n\n")
+
+def func_update_test(x):
     print("Old x:", x)
     print("ID of old x:", id(x))
     x = 255
@@ -32,132 +28,110 @@ def update(x):
 a = 10
 print("Old a:", a)
 print("ID of old a:", id(a))
-update(a)
+func_update_test(a)
 print("New a:", a)
 print("ID of new a:", id(a))
 
-# Types of arguments - fixed position, default, non-fixed position.
-def person(name, age=18):
-    print(name)
-    print(age - 5)
+# Types of Parameters -  fixed position, default, non-fixed position.
+print("\n\nTypes of Parameters -  fixed position, default, non-fixed position.")
+def person(name, age = 18):
+    print("Name:", name)
+    print("Age after deducting 5 years:", age - 5)
 
-person('arnab', 30)             # fixed position
-person('arnab')                 # default
-person(age=40, name='arnab')    # non-fixed position, parameter names are specified explicitly
+person("Arnab Banerjee", 30)            # fixed position
+person("Arnab Banerjee")                # default
+person(age=35, name="Arnab Banerjee")   # non-fixed position
 
 # Varargs
-def sum(*b):
-    a = 0
-    for i in b:
-        a += i
-    return a
+print("\n\nVariable Arguments - Varargs")
+def var_sum(*data):
+    sum = 0
+    for i in data:
+        sum += i
+    return sum
 
-sum1 = sum(1, 2, 3, 4, 5)
-sum2 = sum(10, 20)
-sum3 = sum(0, 10, 20, 30, 40)
-print(sum1, sum2, sum3)
+print("Sum:", var_sum(1, 2, 3, 4, 5))
+print("Sum:", var_sum(10, 20, 90, 80, 70))
+print("Sum:", var_sum()) # var_sum() will return 0 in case no argument is passed as sum is initialized to 0
 
-# Keyworded Variable Length Arguments
-def personVarArgs(name, **data):
-    print(name, type(name))
-    print(data, type(data))
+# Keyworded variable length argument - Key-Value pair as Variable name and value pair.
+print("\n\nKeyworded variable length argument - Key-Value pair as Variable name and value pair.")
+def personKeywordVarargs(name, **data):
+    print("Name:", name, "Type of name:", type(name))
+    print("Data:", data, "Type of data:", type(data)) # dictionary
+    return name, data
 
-# Passing dictionary
-def personDict(name, data):
-    print(name, type(name))
-    print(data, type(data))
+name, data = personKeywordVarargs("Arnab Banerjee", age = 30, city = 'Kolkata', prof = "Software Developer/Java Developer")
 
-personVarArgs('arnab', age=29, city='kolkata', phone=9874563210)
-data = {'age': 29, 'city': 'kolkata', 'phone': 9874563210}
-personDict('arnab', data)
+# Passing dictionary.
+print("\n\nPassing dictionary.")
+def personWithDictionary(name, data):
+    print("Name:", name, "Type of name:", type(name))
+    print("Data:", data, "Type of data:", type(data))  # dictionary
+    print("===== Iterating Dictionary =====")
+    for key, value in data.items():
+        print("Key:", key, "\tType of Key:", type(key), "\tValue:", value, "\tType of Value:", type(value))
+    print("===== Iterating Dictionary =====")
 
-# Iterating dictionary
-for i, j in data.items():
-    print("Key:", i, "Value:", j, type(i))
+personWithDictionary(name, data)
 
 # Global Variable
-print("===================================================================================================")
-aNum = 10
-def funcToChangeANum():
-    global aNum
-    aNum = 15
-    print("aNum:", aNum)
-funcToChangeANum()
-print("Global aNum:", aNum)
+print("\n\nGlobal Variable")
+num = 10
+def functionToChangeGlobalNum():
+    global num
+    num = 15
+    print("num:", num)
 
-# Getting Global variables.
-print("===================================================================================================")
-aNum = 10
-print(id(aNum))
-def funcToChangeANum():
-    aNum = 8
-    globalVars = globals()['aNum']
-    print("id of globalVars:", id(globalVars))
-    globalVars = 15 # It will not change the value of global aNum, instead it will simply point to new location where 15 resides.
-    print("globalVars:", globalVars)
-    print("id of globalVars:", id(globalVars))
-    globals()['aNum'] = 20
-    globalVars = globals()['aNum']
-    print("id of globalVars:", id(globalVars))
-    print("globalVars:", globalVars)
-    print("Local aNum:", aNum)
-funcToChangeANum()
-print("Global aNum:", aNum)
-print(id(aNum))
+functionToChangeGlobalNum()
+print("Global num:", num)
 
-# Passing List to a function
-print("===================================================================================================")
-def getEvenAndOdd(list):
-    countOfEven = 0
-    countOfOdd = 0
-    for i in list:
-        if(i % 2 == 0):
-            countOfEven += 1
+# Getting Global Variables
+print("\n\nGetting Global Variables")
+num = 10
+print("num:", num, "ID of num:", id(num))
+def functionToGetGlobalVariables():
+    num = 8
+    globalVars = globals()
+    print("GlobalVars:", globalVars, "Type of GlobalVars:", type(globalVars))
+    #for key, value in globalVars:
+    #    print("Key:", key, "Value:", value)
+    globalNum = globalVars.get("num")
+    print("globalNum:", globalNum, "ID of globalNum:", id(globalNum))
+    globalNum = 15
+    print("globalNum:", globalNum, "ID of globalNum:", id(globalNum))
+    globals()['num'] = 20
+    print("globalNum:", globalNum, "ID of globalNum:", id(globalNum))
+    globalNum = globalVars.get("num")
+    print("globalNum:", globalNum, "ID of globalNum:", id(globalNum))
+
+functionToGetGlobalVariables()
+print("num:", num, "ID of num:", id(num))
+
+# Passing a list to a function
+print("\n\nPassing a list to a function")
+def getTotalCountOfEvenAndOddNumbers(list):
+    evenNumbers = 0
+    oddNumbers = 0
+    for value in list:
+        if value % 2 == 0:
+            evenNumbers += 1
         else:
-            countOfOdd += 1
-    return countOfEven, countOfOdd
-list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-even, odd = getEvenAndOdd(list)
-print("No. of even no.:", even)
-print("No. of odd no.:", odd)
+            oddNumbers += 1
+    return evenNumbers, oddNumbers
 
-# Anonymous / Lambda Function
-print("===================================================================================================")
-f_sqr = lambda a: a * a
-print(f_sqr(5))
-f_add = lambda a, b: a + b
-print(f_add(5,6))
+evens, odds = getTotalCountOfEvenAndOddNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])
+print("Even Numbers:", evens, "Odd Numbers:", odds)
 
-# Filter, Map, and Reduce
-print("===================================================================================================")
-from functools import reduce
-nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-evens = []
-for i in filter(lambda n: n % 2 == 0, nums):
-    evens.append(i)
-print(evens)
-plusTwoEvens = []
-for i in map(lambda n: n + 2, evens):
-    plusTwoEvens.append(i)
-print(plusTwoEvens)
-sum = reduce(lambda x, y: x + y, plusTwoEvens)
-print(sum)
-
-print("===================================================================================================")
-
-# Next start from value swapper function demo
-def div(a, b):
-    print(a/b)
-
-def smart_div(a, b):
-    if a > b:
-        div(a, b)
-    else:
-        div(b, a)
-
-smart_div(2, 4)
-
-print("===================================================================================================")
+# Anonymous or Lambda Function
+print("\n\nAnonymous or Lambda Function")
+sqrt_of_a = lambda a: a * a
+add_of_2_nos = lambda a, b: a + b
+print("Square Root of a Number: 5 ->", sqrt_of_a(5))
+print("Addition of 2 Numbers: 5, 6 ->", add_of_2_nos(5, 6))
 
 # __name__ variable
-print(__name__)
+print("\n\n__name__:", __name__)
+
+
+

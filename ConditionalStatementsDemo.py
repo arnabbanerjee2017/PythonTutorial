@@ -3,6 +3,15 @@ if False:
     print("Inside if")
 print("Outside of if.")
 
+a = 10
+b = 10;
+if a > b:
+    print("a > b")
+elif a == b:
+    print("a == b")
+else:
+    print("b > a")
+
 arnab = ['arnab', 'banerjee', 'kolkata', 'wb', 700074, 5.1]
 for i in arnab:
     print(i, type(i))
